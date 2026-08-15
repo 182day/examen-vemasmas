@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { hashearTexto } from '../utilidades/hash';
 
 interface Usuario {
@@ -9,23 +9,20 @@ interface Usuario {
 interface ContextoAutenticacionTipo {
   usuario: Usuario | null;
   iniciarSesion: (correo: string, clave: string) => void;
+  cerrarSesion: () => void;
   logeado: boolean;
 }
 
 const ContextoAutenticacion = createContext<ContextoAutenticacionTipo | undefined>(undefined);
 
-export function ProveedorAutenticacion({ children }: { children: any }) {
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
-
-  useEffect(() => {
+export function ProveedorAutenticacion({ children }: { children: React.ReactNode }) {
+  // Inicialización síncrona: Lee localStorage ANTES del primer render
+  const [usuario, setUsuario] = useState<Usuario | null>(() => {
     const sesionGuardada = localStorage.getItem('usuario_sesion');
-    if (sesionGuardada) {
-      setUsuario(JSON.parse(sesionGuardada));
-    }
-  }, []);
+    return sesionGuardada ? JSON.parse(sesionGuardada) : null;
+  });
 
   const iniciarSesion = async (correo: string, clave: string) => {
-    // Generar hash SHA-256 de la contraseña
     const claveHasheada = await hashearTexto(clave);
 
     const datosUsuario: Usuario = {
@@ -37,11 +34,17 @@ export function ProveedorAutenticacion({ children }: { children: any }) {
     setUsuario(datosUsuario);
   };
 
+  const cerrarSesion = () => {
+    localStorage.removeItem('usuario_sesion');
+    setUsuario(null);
+  };
+
   return (
     <ContextoAutenticacion.Provider
       value={{
         usuario,
         iniciarSesion,
+        cerrarSesion,
         logeado: !!usuario,
       }}
     >

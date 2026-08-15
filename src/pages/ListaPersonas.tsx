@@ -1,6 +1,19 @@
-import { Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAutenticacion } from '../context/Autentication';
+import { 
+  Users,
+  LogOut
+} from 'lucide-react';
 
 export const ListaPersonas = () => {
+  const navigate = useNavigate();
+  const { usuario, cerrarSesion } = useAutenticacion();
+
+  const manejarCerrarSesion = () => {
+    cerrarSesion();
+    navigate('/login');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar Superior */}
@@ -10,8 +23,25 @@ export const ListaPersonas = () => {
             <Users size={24} />
             <span>Sistema de Personas</span>
           </div>
+          <div className="flex items-center gap-4 text-sm">
+            <span className="hidden sm:inline bg-indigo-700 px-3 py-1 rounded-full text-xs font-medium">
+              {usuario?.correo}
+            </span>
+            <button
+              onClick={manejarCerrarSesion}
+              className="flex items-center gap-1.5 bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-md transition-colors text-xs font-semibold"
+            >
+              <LogOut size={16} />
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Contenido Principal */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        Información del personal
+      </main>
     </div>
   );
 };
