@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAutenticacion } from '../context/Autentication';
 import { LogIn, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const { iniciarSesion } = useAutenticacion();
+
   const [correo, setCorreo] = useState<string>('');
   const [clave, setClave] = useState<string>('');
   const [errores, setErrores] = useState<{ correo?: string; clave?: string }>({});
@@ -36,8 +41,9 @@ export const Login = () => {
 
     // 1 segundo de espera
     setTimeout(() => {
+      iniciarSesion(correo, clave);
       setCargando(false);
-      console.log('Usuario logeado: ' + correo);
+      navigate('/personas');
     }, 1000);
   };
 

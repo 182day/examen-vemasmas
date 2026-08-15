@@ -1,8 +1,11 @@
+import { ProveedorAutenticacion } from './context/Autentication';
 import { Router } from './Router';
 
 export const App = () => {
   return (
-    <Router />
+    <ProveedorAutenticacion>
+      <Router />
+    </ProveedorAutenticacion>
   );
 };
 
