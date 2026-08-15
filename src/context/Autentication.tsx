@@ -16,7 +16,6 @@ interface ContextoAutenticacionTipo {
 const ContextoAutenticacion = createContext<ContextoAutenticacionTipo | undefined>(undefined);
 
 export function ProveedorAutenticacion({ children }: { children: React.ReactNode }) {
-  // Inicialización síncrona: Lee localStorage ANTES del primer render
   const [usuario, setUsuario] = useState<Usuario | null>(() => {
     const sesionGuardada = localStorage.getItem('usuario_sesion');
     return sesionGuardada ? JSON.parse(sesionGuardada) : null;
