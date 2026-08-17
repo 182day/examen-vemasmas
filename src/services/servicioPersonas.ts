@@ -11,12 +11,20 @@ interface RespuestaPersona {
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/wspruebas/personas.php';
 
 export const obtenerPersonas = async (): Promise<RespuestaPersona> => {
-  const respuesta = await axios.get<RespuestaPersona>(`${import.meta.env.VITE_API_URL}?_t=${Date.now()}`);
+  const respuesta = await axios.get<RespuestaPersona>(`${API_URL}`, {
+    params: {
+      _t: Date.now()
+    }
+  });
   return respuesta.data;
 };
 
 export const obtenerPersonaPorId = async (id: number): Promise<RespuestaPersona> => {
-  const respuesta = await axios.get<RespuestaPersona>(`${API_URL}/${id}`);
+  const respuesta = await axios.get<RespuestaPersona>(`${API_URL}/${id}`, {
+    params: {
+      _t: Date.now()
+    }
+  });
   return respuesta.data;
 };
 

@@ -95,7 +95,6 @@ export const ListaPersonas = () => {
                         const respuesta = await eliminarPersona(id);
                         if (respuesta.elError === 1) {
                             setPersonas((prev) => prev.filter((p) => p.id !== id));
-                            obtenerPersonas();
                             toast.success(`${nombre} ha sido eliminado correctamente.`);
                         } else {
                             toast.error(respuesta.mensaje || 'No se pudo eliminar el registro');
