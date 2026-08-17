@@ -17,6 +17,7 @@ Aplicación web interactiva para la gestión de personas (CRUD), desarrollada co
 * Tailwind CSS
 * Lucide React (Iconos)
 * Sonner
+* Xlsx
 
 ## 🚀 Características Principales
 
@@ -48,6 +49,7 @@ npm run dev
 │   │   ├── Header.tsx               # Barra de navegación superior
 │   │   ├── FormularioPersonas.tsx   # Formulario reutilizable de registro/edición
 │   │   └── ModalDetallePersona.tsx  # Card modal para visualización detallada
+│   │   └── BotonExcel.tsx           # Botón para descargar archivo de excel
 │   ├── context/
 │   │   └── Autentication.tsx        # Contexto global para la gestión de autenticación
 │   ├── interfaces/
@@ -60,6 +62,7 @@ npm run dev
 │   │   └── servicioPersonas.ts      # Funciones HTTP Axios configuradas con VITE_API_URL
 │   ├── utilidades/
 │   │   └── hash.ts                  # Funciones utilitarias para encriptación / Hashids
+│   │   └── excel.ts                 # Librería para realizar el reporte de Excel
 │   ├── App.tsx                      # Componente contenedor principal
 │   ├── index.css                    # Estilos globales e integración de Tailwind CSS
 │   ├── main.tsx                     # Punto de entrada de React
