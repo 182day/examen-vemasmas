@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { obtenerPersonas, eliminarPersona } from '../services/servicioPersonas';
 import { ModalPersona } from '../components/ModalPersonas';
 import type { Persona } from '../interfaces/persona';
@@ -26,8 +26,6 @@ import {
 // ];
 
 export const ListaPersonas = () => {
-    const navigate = useNavigate();
-
     //const [personas, setPersonas] = useState<Persona[]>(DATOS_INICIALES);
     const [personas, setPersonas] = useState<Persona[]>([]);
     const [cargando, setCargando] = useState<boolean>(true);
@@ -97,6 +95,7 @@ export const ListaPersonas = () => {
                         const respuesta = await eliminarPersona(id);
                         if (respuesta.elError === 1) {
                             setPersonas((prev) => prev.filter((p) => p.id !== id));
+                            obtenerPersonas();
                             toast.success(`${nombre} ha sido eliminado correctamente.`);
                         } else {
                             toast.error(respuesta.mensaje || 'No se pudo eliminar el registro');
@@ -304,6 +303,7 @@ export const ListaPersonas = () => {
                                     Editar
                                 </Link>
                                 <button
+                                    // @ts-ignore
                                     onClick={() => manejarEliminar(persona.id, persona.nombre)}
                                     className="flex items-center gap-1 text-xs text-red-600 hover:bg-red-50 px-2.5 py-1.5 rounded-md font-medium transition-colors"
                                 >

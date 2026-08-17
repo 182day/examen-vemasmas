@@ -11,7 +11,7 @@ interface RespuestaPersona {
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/wspruebas/personas.php';
 
 export const obtenerPersonas = async (): Promise<RespuestaPersona> => {
-  const respuesta = await axios.get<RespuestaPersona>(API_URL);
+  const respuesta = await axios.get<RespuestaPersona>(`${import.meta.env.VITE_API_URL}?_t=${Date.now()}`);
   return respuesta.data;
 };
 
