@@ -8,7 +8,7 @@ interface RespuestaPersona {
   lista?: Persona[];
 }
 
-const API_URL = 'http://localhost/wspruebas/personas.php';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/wspruebas/personas.php';
 
 export const obtenerPersonas = async (): Promise<RespuestaPersona> => {
   const respuesta = await axios.get<RespuestaPersona>(API_URL);

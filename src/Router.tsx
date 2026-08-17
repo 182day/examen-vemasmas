@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useAutenticacion } from './context/Autentication';
@@ -44,7 +43,6 @@ export const Router = () => {
           <Route path="/personas" element={<ListaPersonas />} />
           <Route path="/personas/nueva" element={<RegistrarPersonas />} />
           <Route path="/personas/editar/:id" element={<RegistrarPersonas />} />
-          <Route path="/personas/detalles/:id" element={<RegistrarPersonas />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />

@@ -1,34 +1,68 @@
-# React + TypeScript + Vite
+# Sistema de Administración de Personas - Examen Frontend (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplicación web interactiva para la gestión de personas (CRUD), desarrollada como prueba técnica para desarrollador Frontend React.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> ⚠️ **IMPORTANTE:**  
+> Para poder ejecutar y conectar el entorno de desarrollo local con la API, **debes solicitar el valor de `VITE_API_URL` a Fernando** e incluirlo en tu archivo `.env`.
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🚀 Tecnologías utilizadas
+* React 18
+* TypeScript
+* React Router DOM v6
+* Axios
+* Tailwind CSS
+* Lucide React (Iconos)
+* Sonner
 
-Note: This will impact Vite dev & build performances.
+## 🚀 Características Principales
 
-## Expanding the Oxlint configuration
+* **CRUD Completo:** Crear, leer, actualizar y eliminar registros de personas.
+* **Vistas Alternables (Tabla / Tarjetas):** Switcher en tiempo real para alternar entre vista de tabla clásica o tarjetas (Cards) con Tailwind CSS.
+* **Modal de Detalle:** Inspección rápida de la información completa de cada persona sin salir del listado.
+* **Notificaciones Flotantes:** Confirmaciones y mensajes de error interactivos implementados con `sonner`.
+* **Manejo de Variables de Entorno:** Configuración desacoplada de la URL del API mediante archivo `.env`.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🛠️ Instalación y Ejecución
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+1. Clonar el repositorio:
+   ```bash
+   git clone [https://github.com/tu-usuario/examen-react-personas.git](https://github.com/tu-usuario/examen-react-personas.git)
+   cd examen-react-personas
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+2. Configurar las variables de entorno:
+# Solicitar el valor exacto de la URL a Fernando
+
+3. Configurar las variables de entorno:
+npm run dev
+
+## 📁 Estructura del Proyecto
+```text
+├── backend/
+│   └── Solicitar URL a Fernando     # Script PHP que maneja los métodos GET, POST, PUT y DELETE
+├── src/
+│   ├── components/
+│   │   ├── Header.tsx               # Barra de navegación superior
+│   │   ├── FormularioPersonas.tsx   # Formulario reutilizable de registro/edición
+│   │   └── ModalDetallePersona.tsx  # Card modal para visualización detallada
+│   ├── context/
+│   │   └── Autentication.tsx        # Contexto global para la gestión de autenticación
+│   ├── interfaces/
+│   │   └── persona.ts               # Interfaces TypeScript (Persona, RespuestaPersona)
+│   ├── pages/
+│   │   ├── Login.tsx                # Pantalla de inicio de sesión
+│   │   ├── ListaPersonas.tsx        # Listado con filtro, vistas (Tabla/Cards) y modal
+│   │   └── RegistrarPersonas.tsx    # Vistas de creación y edición con botón de regresar
+│   ├── services/
+│   │   └── servicioPersonas.ts      # Funciones HTTP Axios configuradas con VITE_API_URL
+│   ├── utilidades/
+│   │   └── hash.ts                  # Funciones utilitarias para encriptación / Hashids
+│   ├── App.tsx                      # Componente contenedor principal
+│   ├── index.css                    # Estilos globales e integración de Tailwind CSS
+│   ├── main.tsx                     # Punto de entrada de React
+│   └── Router.tsx                   # Definición de rutas públicas y protegidas
+├── .env                             # Variables de entorno local
+└── package.json
