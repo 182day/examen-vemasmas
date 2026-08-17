@@ -15,7 +15,8 @@ import {
     UserPlus,
     Mail,
     Phone,
-    Briefcase
+    Briefcase,
+    RotateCcw
 } from 'lucide-react';
 
 // Datos de prueba iniciales
@@ -49,6 +50,11 @@ export const ListaPersonas = () => {
         if (filtroEstado === 'inactivos') return coincideTexto && !persona.activo;
         return coincideTexto;
     });
+
+    const handleLimpiarFiltros = () => {
+        setBusqueda("");
+        setFiltroEstado("todos");
+    };
 
     const abrirDetalle = (persona: Persona) => {
         setPersonaSeleccionada(persona);
@@ -163,7 +169,7 @@ export const ListaPersonas = () => {
                 </div>
             </div>
 
-            {/* Barra de Filtros y Búsqueda */}
+            {/* Barra de Filtros, Búsqueda y Limpiar */}
             {personas.length > 0 && (
                 <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 flex flex-col sm:flex-row gap-4 justify-between">
                     <div className="relative flex-1">
@@ -177,18 +183,30 @@ export const ListaPersonas = () => {
                         />
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <label htmlFor="filtro" className="text-xs font-medium text-gray-600">Estado:</label>
-                        <select
-                            id="filtro"
-                            value={filtroEstado}
-                            onChange={(e) => setFiltroEstado(e.target.value as any)}
-                            className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                            <label htmlFor="filtro" className="text-xs font-medium text-gray-600">Estado:</label>
+                            <select
+                                id="filtro"
+                                value={filtroEstado}
+                                onChange={(e) => setFiltroEstado(e.target.value as any)}
+                                className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                                <option value="todos">Todos</option>
+                                <option value="activos">Activos</option>
+                                <option value="inactivos">Inactivos</option>
+                            </select>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={handleLimpiarFiltros}
+                            className="flex items-center gap-1.5 px-3 py-2 border border-gray-300 text-gray-600 rounded-md text-sm font-medium hover:bg-gray-50 hover:text-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            title="Limpiar filtros"
                         >
-                            <option value="todos">Todos</option>
-                            <option value="activos">Activos</option>
-                            <option value="inactivos">Inactivos</option>
-                        </select>
+                            <RotateCcw size={16} />
+                            <span>Limpiar</span>
+                        </button>
                     </div>
                 </div>
             )}
@@ -196,7 +214,7 @@ export const ListaPersonas = () => {
             {personasFiltradas.length === 0 ? (
                 <div className="bg-white rounded-xl border border-gray-200 p-8 text-center text-gray-500">
                     No se encontraron personas registradas.
-                    {personas.length>0 && <div>Por favor realiza otro busqueda con otros filtros.</div>}
+                    {personas.length > 0 && <div>Por favor realiza otro busqueda con otros filtros.</div>}
                 </div>
             ) : tipoVista === 'tabla' ? (
                 /* VISTA EN TABLA */

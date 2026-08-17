@@ -12,9 +12,11 @@ export const Header = () => {
 
     const manejarCerrarSesion = () => {
         toast.dismiss();
-        cerrarSesion();
-        toast.success('Sesión cerrada correctamente');
         navigate('/login', { replace: true, state: { logoutIntencional: true } });
+        setTimeout(() => {
+            cerrarSesion();
+            toast.success('Sesión cerrada correctamente');
+        }, 0);
     }
     return (<>
         {/* Navbar Superior */}

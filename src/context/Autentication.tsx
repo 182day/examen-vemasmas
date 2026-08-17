@@ -8,9 +8,10 @@ interface Usuario {
 
 interface ContextoAutenticacionTipo {
   usuario: Usuario | null;
-  iniciarSesion: (correo: string, clave: string) => void;
+  iniciarSesion: (correo: string, clave: string) => Promise<void>;
   cerrarSesion: () => void;
   logeado: boolean;
+  logoutIntencional: boolean;
 }
 
 const ContextoAutenticacion = createContext<ContextoAutenticacionTipo | undefined>(undefined);
@@ -21,6 +22,8 @@ export function ProveedorAutenticacion({ children }: { children: React.ReactNode
     return sesionGuardada ? JSON.parse(sesionGuardada) : null;
   });
 
+  const [logoutIntencional, setLogoutIntencional] = useState(false);
+
   const iniciarSesion = async (correo: string, clave: string) => {
     const claveHasheada = await hashearTexto(clave);
 
@@ -30,10 +33,12 @@ export function ProveedorAutenticacion({ children }: { children: React.ReactNode
     };
 
     localStorage.setItem('usuario_sesion', JSON.stringify(datosUsuario));
+    setLogoutIntencional(false);
     setUsuario(datosUsuario);
   };
 
   const cerrarSesion = () => {
+    setLogoutIntencional(true);
     localStorage.removeItem('usuario_sesion');
     setUsuario(null);
   };
@@ -45,6 +50,7 @@ export function ProveedorAutenticacion({ children }: { children: React.ReactNode
         iniciarSesion,
         cerrarSesion,
         logeado: !!usuario,
+        logoutIntencional,
       }}
     >
       {children}

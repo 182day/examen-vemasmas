@@ -8,12 +8,11 @@ import { Header } from './components/Header';
 
 // Componente para proteger rutas privadas
 const RutasProtegidas = () => {
-  const { logeado } = useAutenticacion();
+  const { logeado, logoutIntencional } = useAutenticacion();
   const location = useLocation();
 
   if (!logeado) {
-    // Evita el toast si es un logout intencional
-    if (!location.state?.logoutIntencional) {
+    if (!logoutIntencional) {
       toast.error('No tienes permiso para entrar a esa sección', {
         id: 'no-permiso',
       });
