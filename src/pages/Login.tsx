@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAutenticacion } from '../context/Autentication';
+import { toast } from 'sonner';
 import { LogIn, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 
 export const Login = () => {
@@ -40,8 +41,9 @@ export const Login = () => {
     setCargando(true);
 
     // 1 segundo de espera
-    setTimeout(() => {
-      iniciarSesion(correo, clave);
+    setTimeout(async () => {
+      await iniciarSesion(correo, clave);
+      toast.success(`Bienvenid@ ${correo} :)`)
       setCargando(false);
       navigate('/personas');
     }, 1000);
