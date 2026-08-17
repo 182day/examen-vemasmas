@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
 import { obtenerPersonas, eliminarPersona } from '../services/servicioPersonas';
 import { ModalPersona } from '../components/ModalPersonas';
+import { BotonExcel } from '../components/BotonExcel';
 import type { Persona } from '../interfaces/persona';
 import {
     Edit,
@@ -12,7 +13,6 @@ import {
     Search,
     Table as IconoTabla,
     LayoutGrid,
-    UserPlus,
     Mail,
     Phone,
     Briefcase,
@@ -158,14 +158,18 @@ export const ListaPersonas = () => {
                         </div>
                     )}
 
-                    {/* Botón Nueva Persona */}
-                    <Link
-                        to="/personas/nueva"
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
-                    >
-                        <UserPlus size={18} />
-                        Nueva Persona
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        {/* Botón de Excel */}
+                        <BotonExcel datos={personasFiltradas} />
+
+                        {/* Botón de Registrar */}
+                        <Link
+                            to="/registrar"
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700"
+                        >
+                            Nueva Persona
+                        </Link>
+                    </div>
                 </div>
             </div>
 
