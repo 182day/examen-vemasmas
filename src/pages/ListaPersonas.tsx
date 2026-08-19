@@ -164,7 +164,7 @@ export const ListaPersonas = () => {
 
                         {/* Botón de Registrar */}
                         <Link
-                            to="/registrar"
+                            to="/personas/nueva"
                             className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700"
                         >
                             Nueva Persona
